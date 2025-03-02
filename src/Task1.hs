@@ -1,4 +1,5 @@
 module Task1 where
+import Data.List (group)
 
 -- | Compresses given data using run-length encoding.
 --
@@ -12,7 +13,7 @@ module Task1 where
 -- []
 --
 encode :: Eq a => [a] -> [(Int, a)]
-encode = error "TODO: define encode"
+encode x = zip (g length) $ g head where g f = map f $ group x
 
 -- | Decompresses given data using run-length decoding.
 --
@@ -26,7 +27,7 @@ encode = error "TODO: define encode"
 -- []
 --
 decode :: [(Int, a)] -> [a]
-decode = error "TODO: define decode"
+decode = concatMap $ uncurry replicate
 
 -- | Rotates given finite list to the left for a given amount N
 --
@@ -46,4 +47,7 @@ decode = error "TODO: define decode"
 -- ""
 --
 rotate :: Int -> [a] -> [a]
-rotate = error "TODO: define rotate"
+rotate 0 xs = xs
+rotate n xs = drop m xs ++ take m xs
+       where l = length xs
+             m =  mod n l
