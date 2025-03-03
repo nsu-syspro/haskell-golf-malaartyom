@@ -48,5 +48,5 @@ decode = concatMap $ uncurry replicate
 -- ""
 --
 rotate :: Int -> [a] -> [a]
-rotate 0 x = x
+rotate _ [] = []
 rotate n x = drop m x ++ take m x where m = mod n $ length x
