@@ -13,8 +13,12 @@ import Control.Arrow ((&&&))
 -- >>> encode []
 -- []
 --
+l :: [a] -> Int
+l = length
+
+
 encode :: Eq a => [a] -> [(Int, a)]
-encode = map (length &&& head) . group
+encode = map (l &&& head) . group
 
 -- | Decompresses given data using run-length decoding.
 --
@@ -49,4 +53,4 @@ decode = concatMap $ uncurry replicate
 --
 rotate :: Int -> [a] -> [a]
 rotate _ [] = []
-rotate n x = drop m x ++ take m x where m = mod n $ length x
+rotate n x = drop m x ++ take m x where m = mod n $ l x
